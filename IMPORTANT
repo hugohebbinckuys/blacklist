@@ -1,0 +1,5 @@
+- imports absolus pour pas de pb d'imports (p/ex from mon_projet.utils import ma_fonction)
+
+- lancer avec python -m ...... .main par exemple 
+
+- commande pour lancer serveur flask : (etre dans 'BLACKLIST') python -m db.package.app 

@@ -7,9 +7,14 @@ const password = ref("")
 const job = ref("")
 
 const send_new_user = async() => {
-    user = (email.value, password.value, job.value)
+    const user = {
+        email:email.value,
+        password:password.value,
+        job:job.value,
+    } // iportant envoyer au format json
+    
     try {
-        response = await axios.post('url_script_python', user)
+        const response = await axios.post('http://127.0.0.1:5000/new_user', user)
         console.log("user sent to python")
     } catch (error) {
         console.error("error when trying to send user information to python : ", error)
@@ -21,11 +26,11 @@ const send_new_user = async() => {
 <template>
     yo t la pour te signup toi
 
-    <form action="">
-        <input type="text" placeholder="email" v-model="email">
+    <form action="" method="post">
+        <input type="email" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
         <input type="text" placeholder="job" v-model="job">
-        <input type="submit">
+        <input type="submit" @click.prevent="send_new_user()">
     </form>
 
     <p> le v-model de email (test) : {{ email }} </p>
