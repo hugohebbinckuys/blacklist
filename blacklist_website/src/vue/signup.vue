@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import router from '@/router';
 
 const email = ref("")
 const password = ref("")
@@ -16,6 +17,7 @@ const send_new_user = async() => {
     try {
         const response = await axios.post('http://127.0.0.1:5000/new_user', user)
         console.log("user sent to python")
+        router.push("/login")
     } catch (error) {
         console.error("error when trying to send user information to python : ", error)
     }

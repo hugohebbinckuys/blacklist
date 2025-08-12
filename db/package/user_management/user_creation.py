@@ -4,12 +4,12 @@ import requests # bibliothèque python pr faire des requetes HTTP
 from flask import request # objet fourin par flask pour récupérer les données de la reuqste http recue par le serveur flask (les headers, le contenu etc.)
 from flask_cors import CORS, cross_origin
 
-from db.package.utils import password_hacher
+from db.package.utils.utils import password_hacher
 
 cursor = connexion.cursor 
 db = connexion.db
 
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+# CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 
 @app.route('/', methods=['OPTIONS', 'POST'])
