@@ -1,6 +1,8 @@
 from db.package.connexion import connexion
 from db.package.app import app
+
 import requests # bibliothèque python pr faire des requetes HTTP
+
 from flask import request # objet fourin par flask pour récupérer les données de la reuqste http recue par le serveur flask (les headers, le contenu etc.)
 from flask_cors import CORS, cross_origin
 

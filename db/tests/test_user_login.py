@@ -3,7 +3,7 @@ from db.package.app import app
 import flask
 from flask import request
 from flask_bcrypt import bcrypt
-from db.package.db_requests.get_requests import get_user_email_passwd
+from db.package.utils.db_requests.get_requests import get_user_email_passwd
 
 
 db = connexion.db
@@ -24,7 +24,6 @@ def login () :
             return bcrypt.checkpw(clear_password.encode('utf-8'), user[1].encode('utf-8'))
     print ("user '"+email+"' inexistant")
     return False
-
 
 
 if __name__ == "__main__" : 

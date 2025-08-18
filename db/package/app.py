@@ -6,6 +6,7 @@ CORS(app, resources={r"/*":{"origins":"*"}}, supports_credentials=True) # config
 
 from db.package.user_management.user_creation import * # TRES important, on importe ici pour que le CORS soit appliqué à toutes les fonctions de user_creation, parce que la on lance le app.py donc on passe par le if __name__ ... mais quand on l'appelle d'autre part on lance pas le if __name__ == ... donc les azutres fonctions ont pas le parametrages de CORS 
 from db.package.user_management.user_login import *
+from db.package.institutions_management.send_all_institutions import *
 
 # @app.route('/', methods=['OPTIONS', 'POST'])
 # def test() : 
