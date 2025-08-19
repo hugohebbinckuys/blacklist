@@ -4,13 +4,15 @@ import { ref, computed } from "vue";
 export const useBlacklistStore = defineStore('blacklist', () =>{
     //state
     const state = ref({
-        authorized : sessionStorage.getItem("authorized_access") === "true"
+        authorized : sessionStorage.getItem("authorized_access") === "true",
+        user_information : JSON.parse(sessionStorage.getItem("user_information"))
     }) //ici je pense que on fait ca pour que ce soit reactif sinon on metterait const authorized ... mais pas reactif je pense 
 
 
     //getter 
 
     const getter_is_authorized = computed(() => state.value.authorized)
+    const getter_user_information = computed(()=> state.value.user_information)
 
 
     //action
@@ -26,10 +28,18 @@ export const useBlacklistStore = defineStore('blacklist', () =>{
         console.log("- store action - unauthorized now")
     }
 
+    const action_fill_user_information = (user_info) => {
+        state.value.user_information = user_info
+        sessionStorage.setItem("user_information", JSON.stringify(user_info))
+        console.log("- user :", user_info, "connecté")
+    }
+
     return {
         state, 
         getter_is_authorized,
+        getter_user_information, 
         action_authorized, 
-        action_logout
+        action_logout, 
+        action_fill_user_information
     };
 });

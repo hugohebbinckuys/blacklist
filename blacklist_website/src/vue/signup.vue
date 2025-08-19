@@ -2,7 +2,9 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import router from '@/router';
+import { useBlacklistStore } from '@/blacklist_store';
 
+const blacklist_store = useBlacklistStore()
 const liste_institutions = ref([])
 
 const recup_institutions = async() => {
@@ -40,12 +42,21 @@ const send_new_user = async() => {
         console.log("Attempt to send these informations to python : ", user)
         const response = await axios.post('http://127.0.0.1:5000/new_user', user)
         console.log("user informations sent to python : ")
-        if (response.data === "-- KO status --"){
+        if (response.data["status"] === "KO"){
             console.log(response.data)
             error.value = 1
         }
         else {
-            router.push("/login")
+            if (response.data["status"] === "OK"){
+                blacklist_store.action_fill_user_information(response.data["user_info"])
+                blacklist_store.action_authorized()
+                if (response.data["redirect"] === "connected"){
+                    router.push("/connected")
+                }
+                else if (response.data["redirect"] === "institution_auth"){
+                    router.push("/institution_auth")
+                }
+            }
         }
     } catch (error) {
         console.error("error when trying to send user information to python : ", error)

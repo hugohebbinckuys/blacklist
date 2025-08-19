@@ -5,7 +5,7 @@ import flask
 from flask import request
 from flask_bcrypt import bcrypt
 
-from db.package.utils.db_requests.get_requests import get_all_user_email_passwd
+from db.package.utils.db_requests.get_requests import get_all_user_email_passwd_authorized
 
 db = connexion.db
 cursor = connexion.cursor
@@ -18,7 +18,7 @@ def login () :
     institution = sent.get("institution")
     print ("informations reçues : ", email, password, institution)
 
-    cursor.execute(get_all_user_email_passwd)
+    cursor.execute(get_all_user_email_passwd_authorized)
     all_users = cursor.fetchall() # renvoie bien une liste de tuple qui contient les infos de l'user (ici email, password)
 
     for user in all_users : 

@@ -8,6 +8,8 @@ from flask_cors import CORS, cross_origin
 
 from db.package.utils.utils import password_hacher
 
+from db.package.utils.utils import get_user_information
+
 cursor = connexion.cursor 
 db = connexion.db
 
@@ -24,17 +26,24 @@ def new_user () :
     sent = request.json 
     user = (sent.get("email"), password_hacher(sent.get("password")), sent.get("job"), sent.get("institution"))
     try : 
-        query = "INSERT INTO user VALUES(%s, %s, %s, %s)"
+        query = "INSERT INTO user (email, password, job, institution_id) VALUES(%s, %s, %s, %s)"
         cursor.execute(query, user)
 
         db.commit()
         print ("\n--- values sent ---\n")
 
-        return "-- ok status --"
+        authorized_request = get_user_information(user[0])
+        authorized = authorized_request[0][2]
+        
+        if (authorized == 1) :
+            return {"status":"OK", "redirect":"connected", "user_info":authorized_request[0]}
+        else : 
+            return {"status":"OK", "redirect":"institution_auth", "user_info":authorized_request[0]}
+
     except Exception as e: 
         print ("\n--- Values didn't arrived to the db ---\n")
         print (e)
 
-        return "-- KO status --"
+        return {"status":"KO", "redirect":"signup"}
 
 

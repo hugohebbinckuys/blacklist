@@ -20,6 +20,8 @@ const test_email_format = (email) => {
     }
 }
 
+
+
 const login = async() => {
     if (test_email_format(email.value)){
         console.log("ok - login en cours")
