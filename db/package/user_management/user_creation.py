@@ -22,9 +22,9 @@ def test() :
 @app.route("/new_user", methods=["POST"])
 def new_user () : 
     sent = request.json 
-    user = (sent.get("email"), password_hacher(sent.get("password")), sent.get("job"))
+    user = (sent.get("email"), password_hacher(sent.get("password")), sent.get("job"), sent.get("institution"))
     try : 
-        query = "INSERT INTO user VALUES(%s, %s, %s)"
+        query = "INSERT INTO user VALUES(%s, %s, %s, %s)"
         cursor.execute(query, user)
 
         db.commit()

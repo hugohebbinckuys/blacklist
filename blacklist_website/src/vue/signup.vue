@@ -13,29 +13,18 @@ const recup_institutions = async() => {
         liste_institutions.value.push(element)
     });
     console.log ("tableau final des institutions : ", liste_institutions.value)
+    return true
     // liste_institutions.value.forEach(element => {
     // console.log("y a qq ? ", element)
     // });
 }
+
 recup_institutions()
-
-const liste_noms_institutions = ref([])
-
-const lister_noms = () => {
-    console.log("on passe pas par la ? ")
-    liste_institutions.value.forEach(element => {
-        liste_noms_institutions.value.push(element[1])
-        console.log("element ", element[1], "ajouté")
-    });
-}
-
-lister_noms()
-// ca marche pas sa mere 
-
 
 const email = ref("")
 const password = ref("")
 const job = ref("")
+const institution_selected = ref("")
 
 const error = ref(0)
 
@@ -44,11 +33,13 @@ const send_new_user = async() => {
         email:email.value,
         password:password.value,
         job:job.value,
+        institution:institution_selected.value
     } // iportant envoyer au format json
     
     try {
+        console.log("Attempt to send these informations to python : ", user)
         const response = await axios.post('http://127.0.0.1:5000/new_user', user)
-        console.log("user sent to python")
+        console.log("user informations sent to python : ")
         if (response.data === "-- KO status --"){
             console.log(response.data)
             error.value = 1
@@ -64,19 +55,20 @@ const send_new_user = async() => {
 </script>
 
 <template>
-    yo t la pour te signup toi
+    <p>yo t la pour te signup toi</p>
+
+    <br>
 
     <form action="" method="post">
         <input type="email" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
         <input type="text" placeholder="job" v-model="job">
+        <select name="institutions_name" v-model="institution_selected" >
+            <option v-for="institution in liste_institutions" :value="institution[0]"> {{ institution[1] }} </option>
+        </select>
+
         <input type="submit" @click.prevent="send_new_user()">
     </form>
     <p style="color: red;" v-if="error === 1"> erreur lors de l'enregistrement de l'utilisateur </p>
-
-    <p> le v-model de email (test) : {{ email }} </p>
-
-    liste des etablissements : 
-    <p v-for="institution in liste_noms_institutions"> {{ institution }} </p>
 
 </template>
