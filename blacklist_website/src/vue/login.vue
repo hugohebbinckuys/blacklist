@@ -8,22 +8,8 @@ const email = ref("")
 const password = ref("")
 const blacklist_store = useBlacklistStore()
 
-const test_email_format = (email) => {
-    const regex = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}$")
-    if (regex.test(email)) {
-        // console.log("email : ", email, " valide")
-        return true
-    }
-    else {
-        // console.log("email : ", email, " NON valide")
-        return false
-    }
-}
-
-
-
 const login = async() => {
-    if (test_email_format(email.value)){
+    if (blacklist_store.action_test_email_format(email.value)){
         console.log("ok - login en cours")
         const login_info = {email:email.value, password: password.value}
         const response = await axios.post("http://127.0.0.1:5000/login", login_info)
@@ -31,7 +17,7 @@ const login = async() => {
         if (response.data.authorized == true){
             console.log("- autorisé, stockage dans le store -")
             blacklist_store.action_authorized()
-            router.push("/menu")
+            router.push("/connected/menu")
             // mettre ici le code pour sauavgerader dans store etat de connexion 
         }
         else {

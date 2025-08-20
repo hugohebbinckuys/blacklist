@@ -5,7 +5,6 @@ from flask import request
 from flask_bcrypt import bcrypt
 from db.package.utils.db_requests.get_requests import get_user_email_passwd
 
-
 db = connexion.db
 cursor = connexion.cursor
 

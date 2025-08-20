@@ -34,12 +34,25 @@ export const useBlacklistStore = defineStore('blacklist', () =>{
         console.log("- user :", user_info, "connecté")
     }
 
+    const action_test_email_format = (email) => {
+        const regex = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}$")
+        if (regex.test(email)) {
+            // console.log("email : ", email, " valide")
+            return true
+        }
+        else {
+            // console.log("email : ", email, " NON valide")
+            return false
+        }
+    }
+
     return {
         state, 
         getter_is_authorized,
         getter_user_information, 
         action_authorized, 
         action_logout, 
-        action_fill_user_information
+        action_fill_user_information, 
+        action_test_email_format
     };
 });

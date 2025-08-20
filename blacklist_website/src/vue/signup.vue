@@ -28,38 +28,45 @@ const password = ref("")
 const job = ref("")
 const institution_selected = ref("")
 
-const error = ref(0)
+const error_new_user = ref(0)
+const error_not_email_format = ref(0)
 
 const send_new_user = async() => {
-    const user = {
-        email:email.value,
-        password:password.value,
-        job:job.value,
-        institution:institution_selected.value
-    } // iportant envoyer au format json
-    
-    try {
-        console.log("Attempt to send these informations to python : ", user)
-        const response = await axios.post('http://127.0.0.1:5000/new_user', user)
-        console.log("user informations sent to python : ")
-        if (response.data["status"] === "KO"){
-            console.log(response.data)
-            error.value = 1
-        }
-        else {
-            if (response.data["status"] === "OK"){
-                blacklist_store.action_fill_user_information(response.data["user_info"])
-                blacklist_store.action_authorized()
-                if (response.data["redirect"] === "connected"){
-                    router.push("/connected")
-                }
-                else if (response.data["redirect"] === "institution_auth"){
-                    router.push("/institution_auth")
+    if(blacklist_store.action_test_email_format(email.value)){
+        const user = {
+            email:email.value,
+            password:password.value,
+            job:job.value,
+            institution:institution_selected.value
+        } // iportant envoyer au format json
+        
+        try {
+            console.log("Attempt to send these informations to python : ", user)
+            const response = await axios.post('http://127.0.0.1:5000/new_user', user)
+            console.log("user informations sent to python : ", user)
+            if (response.data["status"] === "KO"){
+                console.log(response.data)
+                error.value = 1
+            }
+            else {
+                if (response.data["status"] === "OK"){
+                    blacklist_store.action_fill_user_information(response.data["user_info"])
+                    blacklist_store.action_authorized()
+                    if (response.data["redirect"] === "connected"){
+                        router.push("/connected")
+                    }
+                    else if (response.data["redirect"] === "institution_auth"){
+                        router.push("/institution_auth")
+                    }
                 }
             }
+        } catch (error) {
+            console.error("error when trying to send user information to python : ", error)
         }
-    } catch (error) {
-        console.error("error when trying to send user information to python : ", error)
+    }
+    else { 
+        console.log("NOT ok - saisir email")
+        error_not_email_format.value = 1
     }
 }
 
@@ -80,6 +87,7 @@ const send_new_user = async() => {
 
         <input type="submit" @click.prevent="send_new_user()">
     </form>
-    <p style="color: red;" v-if="error === 1"> erreur lors de l'enregistrement de l'utilisateur </p>
+    <p style="color: red;" v-if="error_new_user === 1"> erreur lors de l'enregistrement de l'utilisateur </p>    
+    <p style="color: red;" v-if="error_not_email_format === 1"> veuillez saisir un email valide </p>
 
 </template>

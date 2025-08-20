@@ -1,5 +1,5 @@
 from db.package.app import app
-from db.package.utils.utils import get_all_institutions_request
+from db.package._sql_requests.institution_requests import get_all_institutions_request
 
 @app.route("/recup_institutions", methods=["GET"])
 def send_institutions_to_vuejs () :
