@@ -17,6 +17,7 @@ const login = async() => {
         if (response.data.authorized == true){
             console.log("- autorisé, stockage dans le store -")
             blacklist_store.action_authorized()
+            blacklist_store.action_fill_user_information(response.data.user_info)
             router.push("/connected/menu")
             // mettre ici le code pour sauavgerader dans store etat de connexion 
         }

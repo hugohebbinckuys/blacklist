@@ -4,13 +4,13 @@
 from db.package.connexion.connexion import db, cursor
 
 def get_institution_by_id (id) :
-    request = f"SELECT password from institution where institution.id = '{id}'"
-    cursor.execute(request)
+    query = f"SELECT password from institution where institution.id = '{id}'"
+    cursor.execute(query)
     response = cursor.fetchone()
     return response
 
 def get_all_institutions_request () : 
-    request = "SELECT * from institution"
-    cursor.execute(request)
+    query = "SELECT * from institution"
+    cursor.execute(query)
     response = cursor.fetchall()
     return response

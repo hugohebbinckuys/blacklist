@@ -6,20 +6,27 @@ import { ref } from 'vue';
 
 const institution_password = ref("")
 const blacklist_store = useBlacklistStore()
+const bad_password = ref(0)
 
 const send_request = async() => {
     try {
-        const to_send = {password_entered:institution_password.value, institution_id:blacklist_store.getter_user_information[3]}
+        bad_password.value = 0 
+        const to_send = {password_entered:institution_password.value, institution_id:blacklist_store.getter_user_information[3], user_email:blacklist_store.getter_user_information[0]}
         const response = await axios.post("http://127.0.0.1:5000/institution_login", to_send)
         if (response.data["status"] === "OK"){
             console.log("mdp pour l'hotel validé")
-            const user_info = response.data["user_info"]
-            // blacklist_store.action_fill_user_information(user_info)
-            console.log("la on doit changer le fait que authorisé a acc&éder à son etablissement c 1 maintenant ! parce que la on va pas povuoir accéder à connected/menu)")
+            
+            const user_info = response.data["user_updated"]
+            console.log("user updated : ", user_info)
+            blacklist_store.action_fill_user_information(user_info)
+        
             router.push("/connected/menu")
         }
+        else {
+            bad_password.value = 1
+        }
     } catch (error) {
-        console.error("erreur :", error)
+        console.error("erreur institution login  :", error)
     }
 }
 
@@ -28,6 +35,8 @@ const send_request = async() => {
 <template>
     <p> institution_auth </p>
 
+    <h3 style="color:red"> Il s'agit de votre première connexion, authentifiez-vous avec le mot de passe de votre établissement pour continuer. </h3>
+
     <form action="" method="POST">
         <input type="text" value="Hotel de Wimereux" disabled>
         <input type="text" value="Wimereux" disabled>
@@ -35,4 +44,5 @@ const send_request = async() => {
         <input type="submit" @click.prevent="send_request()">
     </form>
 
+    <p v-if="bad_password == 1"> Le mot de passe saisi n'est pas bon</p>
 </template>

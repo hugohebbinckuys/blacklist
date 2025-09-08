@@ -17,3 +17,11 @@ def get_user_information (email) :
     cursor.execute(request)
     response = cursor.fetchone()
     return response
+
+def put_institution_access_to_ok (user_email) :
+    query = "UPDATE user SET authorized = 1 where email = %s"
+    try :
+        cursor.execute(query, (user_email,))
+        db.commit()
+    except Exception as e : 
+        print ("error when trying to update user : ", e)

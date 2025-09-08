@@ -14,7 +14,7 @@ def new_user () :
         insert_new_user(user)
         
         authorized_request = get_user_information(user[0])
-        print ("\n athorized_request : ", authorized_request)
+        print ("\n athorized_request for : ", authorized_request)
         authorized = authorized_request[4]
         print ("\n athorized : ", authorized)
         

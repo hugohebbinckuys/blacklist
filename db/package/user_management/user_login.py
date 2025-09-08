@@ -10,8 +10,8 @@ def login () :
     sent = request.json
     email = sent.get("email")
     password = sent.get("password")
-    institution = sent.get("institution")
-    print ("informations reçues : ", email, password, institution)
+    # institution = sent.get("institution")
+    print ("informations reçues : ", email, password)
 
     # cursor.execute(get_all_user_email_passwd_authorized)
     # all_users = cursor.fetchall() # renvoie bien une liste de tuple qui contient les infos de l'user (ici email, password)
@@ -29,7 +29,7 @@ def login () :
 
     if (user_information != None) :    
         if (bcrypt.checkpw(password.encode('utf-8'), user_information[1].encode('utf-8'))) :
-            return {'authorized' : True}
+            return {'authorized' : True, "user_info" : user_information}
         else : 
             return {'authorized': False, 'password': 'NOT ok'}
     else : 
