@@ -18,7 +18,7 @@ const login = async() => {
             console.log("- autorisé, stockage dans le store -")
             blacklist_store.action_authorized()
             blacklist_store.action_fill_user_information(response.data.user_info)
-            router.push("/connected/menu")
+            router.push("/blacklist")
             // mettre ici le code pour sauavgerader dans store etat de connexion 
         }
         else {
@@ -32,7 +32,7 @@ const login = async() => {
 </script>
 
 <template>
-    yo t la pour te login toi 
+    //login template // 
     <br><br>
 
     <form action="" method="post">

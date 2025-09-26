@@ -4,17 +4,19 @@ import { useBlacklistStore } from "./blacklist_store";
 import accueil from "./vue/accueil.vue";
 import signup from "./vue/signup.vue";
 import login from "./vue/login.vue";
-import menu from "./vue/connected/connected_menu.vue";
-import connected_menu from "./vue/connected/connected_menu.vue";
+import blacklist from "./vue/blacklist.vue";
 import institution_auth from "./vue/institution_auth.vue";
+import institution_signup from "./vue/institution_signup.vue";
+import Insertion from "./vue/insertion.vue";
 
 const routes = [
     { path:'/', name: accueil, component: accueil},
     { path:'/signup', name: signup, component: signup},
     { path:'/login', name: login, component: login},
-    { path:'/menu', name: menu, component: menu, meta:{requiredAuth:true}},
+    { path:'/blacklist', name: blacklist, component: blacklist}, 
     { path:'/institution_auth', name: institution_auth, component: institution_auth, meta:{requiredAuth:true}},
-    { path:'/connected/menu', name: connected_menu, component: connected_menu, meta:{requiredAuth:true, requiredInstitution_Auth:true}},
+    { path:'/insertion', name: Insertion, component: Insertion, meta:{requiredAuth:true, requiredInstitution_Auth:true}},
+    { path:'/institution_signup', name: institution_signup, component: institution_signup},
 ];
 
 const router = createRouter({
@@ -27,7 +29,7 @@ router.beforeEach(async(to, from)=>{
 
     if (to.meta.requiredAuth && !blacklist_store.getter_is_authorized){
         console.log("you must be connected to access this page, redirect")
-        return from
+        return "/login"
     }
     if (to.meta.requiredInstitution_Auth && blacklist_store.getter_user_information[4]!==1){
         console.log("actual state of institution auth : ", blacklist_store.getter_user_information[4])

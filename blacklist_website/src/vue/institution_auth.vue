@@ -20,7 +20,7 @@ const send_request = async() => {
             console.log("user updated : ", user_info)
             blacklist_store.action_fill_user_information(user_info)
         
-            router.push("/connected/menu")
+            router.push("/blacklist")
         }
         else {
             bad_password.value = 1
@@ -35,7 +35,7 @@ const send_request = async() => {
 <template>
     <p> institution_auth </p>
 
-    <h3 style="color:red"> Il s'agit de votre première connexion, authentifiez-vous avec le mot de passe de votre établissement pour continuer. </h3>
+    <h3 style="color:red"> Vous n'êtes pas encore authentifiés auprès de votre établissement. <br>Authentifiez-vous avec le mot de passe de celui-ci pour pouvoir ajouter des blacklistés. </h3>
 
     <form action="" method="POST">
         <input type="text" value="Hotel de Wimereux" disabled>

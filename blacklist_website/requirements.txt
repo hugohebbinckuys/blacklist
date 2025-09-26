@@ -1,0 +1,8 @@
+mimemessage
+nodemailer
+dotenv
+--save-dev
+vite-plugin-node-polyfills
+express #Express JS server backend 
+axios
+cors
