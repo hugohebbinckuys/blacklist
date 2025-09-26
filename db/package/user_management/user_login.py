@@ -1,31 +1,19 @@
-from db.package.connexion.connexion import cursor, db
-from db.package.app import app
-import flask
-from flask import request
+from flask import request, Blueprint
 from flask_bcrypt import bcrypt
-from db.package._sql_requests.user_requests import get_user_information
+from db.package._sql_requests.user_requests import User_requests
 
-@app.route("/login", methods=["POST"])
+user_login_bp = Blueprint("user_login_bp", __name__)
+
+@user_login_bp.route("/login", methods=["POST"])
 def login () : 
+    user_requests_instance = User_requests()
     sent = request.json
     email = sent.get("email")
     password = sent.get("password")
     # institution = sent.get("institution")
     print ("informations reçues : ", email, password)
 
-    # cursor.execute(get_all_user_email_passwd_authorized)
-    # all_users = cursor.fetchall() # renvoie bien une liste de tuple qui contient les infos de l'user (ici email, password)
-
-    # for user in all_users : 
-    #     print ("\n-user : ", user, " -")
-    #     if user[0] == email : 
-    #         if (bcrypt.checkpw(password.encode('utf-8'), user[1].encode('utf-8'))) :
-    #             return {'authorized' : True}
-    #         else : return {'authorized': False, 'password': 'NOT ok'}
-    # print ("user '"+email+"' inexistant")
-    # return {'authorized': False, 'user': 'NOT exists'}
-
-    user_information = get_user_information(email)
+    user_information = user_requests_instance.get_user_information(email)
 
     if (user_information != None) :    
         if (bcrypt.checkpw(password.encode('utf-8'), user_information[1].encode('utf-8'))) :
