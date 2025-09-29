@@ -11,8 +11,8 @@ import Insertion from "./vue/insertion.vue";
 
 const routes = [
     { path:'/', name: accueil, component: accueil},
-    { path:'/signup', name: signup, component: signup},
-    { path:'/login', name: login, component: login},
+    { path:'/signup', name: signup, component: signup, meta:{logoutWhenGo:true}},
+    { path:'/login', name: login, component: login, meta:{logoutWhenGo:true}},
     { path:'/blacklist', name: blacklist, component: blacklist}, 
     { path:'/institution_auth', name: institution_auth, component: institution_auth, meta:{requiredAuth:true}},
     { path:'/insertion', name: Insertion, component: Insertion, meta:{requiredAuth:true, requiredInstitution_Auth:true}},
@@ -36,8 +36,16 @@ router.beforeEach(async(to, from)=>{
         console.log("you must have access to your institution, redirect")
         return "/institution_auth"
     }
-
-    // return false // pour cancel la navigation
+    if (to.meta.logoutWhenGo && blacklist_store.getter_is_authorized === true){
+        console.log("-router log - blacklist_store.getter_is_authorized : ", blacklist_store.getter_is_authorized)
+        if (confirm("Vous allez être déconnecté")){
+            console.log("- router - deconnexion")
+            blacklist_store.action_logout()
+        }
+        else {
+            return from
+        }
+    }
 })
 
 export default router; 

@@ -4,6 +4,7 @@ import navbar from './component/navbar.vue';
 
 <template>
   <navbar/>
-  <br><br>
-  <router-view/>
+  <div class="container card">
+    <router-view/>
+  </div>
 </template>

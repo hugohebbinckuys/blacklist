@@ -33,16 +33,16 @@ const send_new_blacklisted = async() => {
 </script>
 
 <template>
-    <br><br>
+    <br>
     // insertion nouveau blacklisté //
     <br><br>
 
     <form action="" method="post" @submit.prevent="send_new_blacklisted()">
-        <input type="text" placeholder="nom" v-model="nom"><br>
-        <input type="text" placeholder="prenom" v-model="prenom"><br>
-        <input type="text" placeholder="06 .. .. .. .." v-model="numero"><br>
-        <input type="text" placeholder="email@email.com" v-model="email"><br>
-        <textarea placeholder="description des faits..." v-model="description"></textarea><br>
+        <input type="text" placeholder="nom" v-model="nom">
+        <input type="text" placeholder="prenom" v-model="prenom">
+        <input type="text" placeholder="06 .. .. .. .." v-model="numero">
+        <input type="text" placeholder="email@email.com" v-model="email">
+        <textarea placeholder="description des faits..." v-model="description"></textarea>
         <!-- <input type="submit" value="ajouter blacklisté" @click.prevent="send_new_blacklisted()">  -->
         <input type="submit" value="ajouter blacklisté"> 
     </form>

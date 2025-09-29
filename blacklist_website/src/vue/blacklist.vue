@@ -9,7 +9,7 @@ const blacklist = ref([]) // this one 'll only contain the information to displa
 const retrieve_blacklisted = async() => {
     const response = await axios.get("http://127.0.0.1:5000/retrieve_blacklisted")
     try {
-        console.log("blacklisted from query : ", response.data)
+        // console.log("blacklisted from query : ", response.data)
         blacklist_all.value = response.data.blacklisted
     } catch (error) {
         console.error("Error when trying to retrieve blacklisted :", error)
@@ -47,16 +47,17 @@ const redirect_insertion = () => {
                 <th>email</th>
                 <th>description</th>
             </tr>
+        </thead>
+        <tbody>
             <tr v-for="person in blacklist">
                 <td v-for="elt in person">
                     <p> {{ elt }} </p>
                 </td>
             </tr>
-        </thead>
+        </tbody>
     </table>
 
-
-    <button @click="retrieve_blacklisted()"> raffraichir </button> 
+    <button @click="retrieve_blacklisted()" class="btn"> raffraichir </button> 
 
 </template>
 

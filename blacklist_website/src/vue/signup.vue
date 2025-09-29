@@ -73,7 +73,7 @@ const send_new_user = async() => {
 </script>
 
 <template>
-    <p>yo t la pour te signup toi</p>
+    <p>Ready to signup ?</p>
 
     <br>
 
@@ -81,11 +81,11 @@ const send_new_user = async() => {
         <input type="email" placeholder="email" v-model="email">
         <input type="password" placeholder="password" v-model="password">
         <input type="text" placeholder="job" v-model="job">
-        <select name="institutions_name" v-model="institution_selected" >
+        <select v-model="institution_selected" >
             <option v-for="institution in liste_institutions" :value="institution[0]"> {{ institution[1] }} </option>
         </select>
 
-        <input type="submit" @click.prevent="send_new_user()">
+        <input type="submit" @click.prevent="send_new_user()" value="S'inscrire">
     </form>
     <p style="color: red;" v-if="error_new_user === 1"> erreur lors de l'enregistrement de l'utilisateur </p>    
     <p style="color: red;" v-if="error_not_email_format === 1"> veuillez saisir un email valide </p>

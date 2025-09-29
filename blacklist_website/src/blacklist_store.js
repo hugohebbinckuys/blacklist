@@ -31,7 +31,7 @@ export const useBlacklistStore = defineStore('blacklist', () =>{
     const action_fill_user_information = (user_info) => {
         state.value.user_information = user_info
         sessionStorage.setItem("user_information", JSON.stringify(user_info))
-        console.log("- user :", user_info, "connecté")
+        console.log("- store action - user :", user_info, "connecté")
     }
 
     const action_test_email_format = (email) => {

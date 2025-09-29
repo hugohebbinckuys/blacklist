@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import router from './router'
 import App from './App.vue'
+import './assets/style.css'
 
 const app = createApp(App) // createApp est une fonction fournie par vue pour permettrte de créer une instance de App.vue. Sert a l'utiliser et la monter dans un DOM. 
 app.use(createPinia())

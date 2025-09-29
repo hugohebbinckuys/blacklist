@@ -1,0 +1,202 @@
+:root {
+  --bg: #f8f9fa;          /* Fond ultra-clair, presque blanc */
+  --surface: #ffffff;     /* Cartes blanches */
+  --border: #e9ecef;      /* Bordures discrètes */
+  --muted: #6c757d;       /* Texte secondaire */
+  --accent: #4a6fa5;      /* Bleu profond et professionnel */
+  --accent-hover: #3a5a8f;/* Bleu légèrement plus foncé */
+  --radius: 8px;          /* Arrondis doux et modernes */
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Ombre légère */
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --max-width: 1000px;
+  --text: #212529;        /* Texte noir profond */
+  --text-light: #495057;  /* Texte secondaire clair */
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base & Typographie */
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout global */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Navbar centrée et élégante */
+nav {
+  background: var(--surface);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar-links a:hover {
+  color: var(--accent);
+  background: rgba(74, 111, 165, 0.05);
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.navbar-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Cartes et conteneurs */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  margin-bottom: 40px;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(74, 111, 165, 0.1);
+}
+
+/* Formulaires */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input, textarea, select {
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  outline: none;
+  background: white;
+  transition: var(--transition);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+}
+
+/* Boutons */
+input[type="submit"], .btn, button {
+  background: var(--accent);
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+input[type="submit"]:hover, .btn:hover, button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+input[type="submit"]:active, .btn:active, button:active {
+  transform: translateY(0);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 32px;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+thead {
+  background: #f1f3f5;
+}
+
+th, td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  font-weight: 600;
+  color: var(--text);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+/* Utilitaires */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
